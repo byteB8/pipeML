@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import seaborn as sns
+import os
 
 
 class ReportingMixin:
@@ -22,7 +23,10 @@ class ReportingMixin:
         )
         plt.xlabel("Predicted Class")
         plt.ylabel("True Class")
-
+        plt.title("Confusion Matrix")
+        # create the output directory if it doesn't exist
+        if not os.path.exists("output"):
+            os.makedirs("output")
         fig.savefig(f"output/confusion_matrix.png")
 
 
