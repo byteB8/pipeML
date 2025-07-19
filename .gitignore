@@ -3,6 +3,9 @@ artifacts/*.joblib
 artifacts/*.pkl
 artifacts/*.json
 
+# ignore metrics output
+output/
+
 # ignore python cache files
 __pycache__/
 *.pyc
