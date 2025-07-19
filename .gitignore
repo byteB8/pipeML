@@ -1,4 +1,7 @@
 .pipelineEnv
+artifacts/*.joblib
+artifacts/*.pkl
+artifacts/*.json
 
 # ignore python cache files
 __pycache__/
