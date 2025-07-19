@@ -1,43 +1,25 @@
-from abc import ABC, abstractmethod
-
-
-class Dataset(ABC):
-    @abstractmethod
-    def load(self) -> None:
-        pass
-
-    @abstractmethod
-    def clean(self) -> None:
-        pass
-
-    @abstractmethod
-    def save(self, path: str) -> None:
-        pass
-
-
-class FileMixin:
-    def load(self) -> None:
-        print(f"Loading {self.path}...")
-        # load data...
-
-    def save(self, path: str) -> None:
-        print(f"Saving {path}...")
-        # save data...
-
-
-class FooDataset(FileMixin, Dataset):
-    def __init__(self, path: str) -> None:
-        print("Initializing child FooDataset...")
-        self.path = path
-
-    def clean(self) -> None:
-        print("Cleaning foo...")
-        # clean data...
-
+from ml_pipeline.datasets.iris import IrisDataset
 
 if __name__ == "__main__":
-    foo_dataset = FooDataset("/foo")
+    print("Instantiating IrisDataset...")
+    dataset = IrisDataset("data/iris.data")
 
-    foo_dataset.load()
-    foo_dataset.clean()
-    foo_dataset.save("/foo.clean")
+    print("Loading the dataset...")
+    dataset.load()
+
+    print("Pre-processing the dataset...")
+    dataset.preprocess()
+    print("Saving pre-processed data to disk...")
+    dataset.save("artifacts", "preprocessed")
+
+    print("Feature engineering the dataset...")
+    dataset.feature_engineer(
+        [
+            "sepal_length",
+            "sepal_width",
+            "petal_length",
+            "petal_width",
+        ]
+    )
+    print("Saving feature engineered data to disk...")
+    dataset.save("artifacts", "feature_engineered")
